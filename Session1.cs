@@ -1,4 +1,32 @@
-﻿class Program
+﻿class Session1
+{
+    /// <summary>
+    /// Read an integer from console with posibility of adding a message before
+    /// </summary>
+    /// <param name="msg"></param>
+    /// <returns></returns>
+    public static int readInt(string msg = "")
+    {
+        string input = "";
+        int num;
+        do
+        {
+            Console.Write(msg);
+            input = Console.ReadLine();
+
+        } while (!int.TryParse(input, out num));
+
+        return num;
+    }
+
+    public static void Main()
+    {
+        Exercice1.doExercice1();
+        Exercice2.doExercice2();
+    }
+}
+
+class Exercice1
 {
     /// <summary>
     /// check if a number is a prime number
@@ -41,20 +69,12 @@ class Exercice2
     /// <param name="num">the number which you want to insert</param>
     public static void insertInto(int[] arr, int num)
     {
-
+        // resposable for starting shifting
         bool isTrue = false;
-        int next = 0;
+        // save the current value for the next operation
+        int next = arr[0];
         for (int i = 0; i < arr.Length - 1; i++)
         {   
-            // if (num < arr[i]) start shifting
-            if ((num < arr[i]) && !isTrue)
-            {
-                next = arr[i];
-                arr[i] = num;
-                isTrue = true;
-                i++;
-            }
-
             if (isTrue)
             {
                 // save the current value for next and assign last value at the current position 
@@ -62,8 +82,16 @@ class Exercice2
                 arr[i] = next;
                 next = swap;
             }
+            // if (num < arr[i]) start shifting
+            if ((num < arr[i]) && !isTrue)
+            {
+                next = arr[i];
+                arr[i] = num;
+                isTrue = true;
+            }
         }
 
+        // use case if the number is the greater number
         arr[arr.Length - 1] = (!isTrue) ? num : next;
     }
     public static void doExercice2()
@@ -75,12 +103,13 @@ class Exercice2
         arr[2] = 3;
         arr[3] = 4;
         arr[4] = 5;
-        arr[5] = 6;
+        arr[5] = 7;
 
         int num = Session1.readInt("Enter a number: ");
 
         insertInto(arr, num);
-
+        
+        // output the array
         for (int i = 0; i < arr.Length; i++)
         {
             Console.WriteLine("arr[" + i + "] = " + arr[i]);
@@ -89,30 +118,3 @@ class Exercice2
     }
 }
 
-class Session1
-{
-    /// <summary>
-    /// Read an integer from console with posibility of adding a message before
-    /// </summary>
-    /// <param name="msg"></param>
-    /// <returns></returns>
-    public static int readInt(string msg = "")
-    {
-        string input = "";
-        int num;
-        do
-        {
-            Console.Write(msg);
-            input = Console.ReadLine();
-
-        } while (!int.TryParse(input, out num));
-
-        return num;
-    }
-
-    public static void Main()
-    {
-        Program.doExercice1();
-        Exercice2.doExercice2();
-    }
-}
