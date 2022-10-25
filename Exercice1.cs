@@ -1,5 +1,15 @@
-﻿class Program
+﻿class Exercice1
 {
+    public static bool isPrime(int num)
+    {
+        for (int i = 2; i < num; i++)
+        {
+            if (num % i == 0) return false;
+        }
+
+        return true;
+    }
+
     public static void Main()
     {
         string input = "";
@@ -14,14 +24,7 @@
         } while (!int.TryParse(input, out num) && (num != -1));
 
 
-        bool isTrue = true;
-        for (int i = 2; (i < num) && isTrue; i++)
-        {
-            if (num % i == 0)
-            {
-                isTrue = false;
-            }
-        }
+        bool isTrue = isPrime(num);
 
         // output the result
         if (isTrue)
